@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h> // Include stdlib.h for malloc
+struct node {
+  int data;
+  struct node *next;
+};
+// Function to create a new node
+struct node *createNode(int data) {
+  struct node *newNode = (struct node *)malloc(sizeof(struct node));
+  newNode->data = data;
+  newNode->next = NULL;
+  return newNode;
+}
+// Function to insert a node at the beginning of the list
+void Insertathead(struct node **head, int data) { // Pass head by reference
+  struct node *temp = createNode(data);
+  temp->next = *head; // Assign next to the current head
+  *head = temp;       // Update the head pointer
+}
+void Insertattail(struct node **tail, int data) { // Pass head by reference
+  struct node *temp = createNode(data);
+  (*tail)->next = temp;
+  *tail = temp;
+}
+// Function to print the linked list
+void print(struct node *head) {
+  struct node *temp = head;
+  while (temp != NULL) {
+    printf("%d ", temp->data); // Print data of each node
+    temp = temp->next;         // Move to the next node
+  }
+  printf("\n");
+}
+int main() {
+  struct node *head = NULL;
+  struct node *tail = NULL;
+  struct node *node1 = createNode(5);
+  head = node1;
+  tail = node1;
+  print(head);
+  Insertattail(&tail, 12); // Pass the address of head
+  print(head);
+  Insertattail(&tail, 54); // Pass the address of head
+  print(head);
+
+  return 0;
+}
